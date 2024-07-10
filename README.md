@@ -123,15 +123,90 @@ In this menu, we want to configure “All Events.” This ensures that Log Analy
 the data we require for the lab.
 
 <h3>5. Connect Log Analytics workspace to your virtual machine</h3>
+For Log Analytics workspace to start collecting logs from our virtual machine, we must connect
+the two together. Open the Log Analytics dashboard again and open your workspace. There will
+be a tab labelled “Virtual Machines (deprecated)” that you will click on. 
+<br />
+<br />
+<img src="https://i.imgur.com/0IJW6Lv.png"/>
+
+Select your virtual machine and click “Connect.”
+<br />
+<br />
+<img src="https://i.imgur.com/smiEiOT.png"/>
+
+This may take some time, so feel free to move onto the next step.
+
 <h3>6. Configure Azure Sentinel (SIEM)</h3>
+Sentinel is where we will be querying the data we get from our Log Analytics workspace and
+display it on the world map. A query is a way to retrieve specific information from a set of data,
+like our logs. For example, we will later use a query that retrieves the country of the attackers.
+Activating Sentinel is quick and painless – simply navigate to the Sentinel dashboard and click
+“Create Azure Sentinel.” After, click your Log Analytics workspace and add it to your Sentinel.
+<br />
+<br />
+<img src="https://i.imgur.com/KsFQWnV.png"/>
+
 <h3>7. Log into your virtual machine</h3>
+To log into your virtual machine, use a program called “Remote Desktop Connection” on your
+computer; it’s installed on there by default.
+<br />
+<br />
+<img src="https://i.imgur.com/i6cQA7k.png"/>
+
+Once you open the program, enter the public IP address of your virtual machine. To log in, use
+the username and password that you configured when first creating the virtual machine. You can
+find the public IP address in the Virtual Machine dashboard.
+<br />
+<br />
+<img src="https://i.imgur.com/oqFGjF7.png"/>
+
+Ensure that the machine status is “Running.” It may take a few minutes for you to be able to log
+in and start using the machine.
+
 <h3>8. Turn off the virtual machine’s firewall</h3>
+We must turn off the firewall on the virtual machine. This will enable attackers from all over the
+world to try and access it. Search up “wf.msc” in the Start Menu and click on “Windows Firewall
+Properties.”
+<br />
+<br />
+<img src="https://i.imgur.com/YFTbByz.png"/>
+
+Ensure that you disable the domain, private, and public firewalls. Click “Apply” and then “OK.”
+
 <h3>9. Set up the PowerShell script to collect log information</h3>
+PowerShell is the Windows version of a shell. A shell is essentially a window where you can
+input commands to tell the computer to do something. A script is a set of instructions that the
+shell will follow automatically.
+<br />
+<br />
+In Josh Madakor’s video, he provides us with a script that he wrote, which can be found here.
+This script processes the raw data from the logs and turns it into something more humanreadable.
+<br />
+<br />
+The easiest way to get this script is to copy the whole script in the GitHub link above and paste it
+directly into the virtual machine. To do this, open PowerShell ISE in your virtual machine. You
+may need to right-click and select “Run as Administrator” for it to work properly. Paste in the
+code here and save the file onto your Desktop.
+<br />
+<br />
+<img src="https://i.imgur.com/TGivCkM.png"/>
+
 <h3>10. Get geolocation.io API key</h3>
+
+
 <h3>11. Create a custom log in Log Analytics workspace</h3>
+
+
 <h3>12. Configure Azure Sentinel notebook</h3>
+
+
 <h3>13. Wait for people to discover your honeypot and attempt to RDP into it</h3>
+
+
 <h3>14. Delete all resources when finished</h3>
+
+
 
 <!--
 
