@@ -193,26 +193,148 @@ code here and save the file onto your Desktop.
 <img src="https://i.imgur.com/TGivCkM.png"/>
 
 <h3>10. Get geolocation.io API key</h3>
+geolocation.io is a free online tool that enables us to input an IP address and look up the country,
+state, latitude, and longitude associated with it. To get it to work with our script, you must sign
+up and get your API key. This key allows you to make use of the location tool in the script.
+On the first and second line of the PowerShell script, it mentions:
+<br />
+<br />
+# Get API key from here: https://ipgeolocation.io/
+$API_KEY = "d4600b4efdef42b39828f5155041a457"
+<br />
+<br />
+<img src="https://i.imgur.com/zxuAI3W.png"/>
 
+Once you create an account on the geolocation.io website, you will be presented with your API
+key. Replace the example API key in your script with your actual key – it will look like an odd
+string of letters and characters like in the script’s example. Ensure that you save the changes.
+<br />
+<br />
+On the top of the PowerShell ISE window, there will be a green button to start the script. Press
+the button so we can start collecting data. If you want to test if it works, you can open another
+Remote Desktop window on your actual computer. However, this time you must intentionally put
+in a wrong username and/or password so that it shows up on your virtual machine’s log. If
+configured correctly, there will be a log entry in the console of the PowerShell ISE.
 
 <h3>11. Create a custom log in Log Analytics workspace</h3>
+We’ll be creating a custom log in our Log Analytics workspace so that the formatting will be
+consistent with the logs in our virtual machine. Open your workspace in Log Analytics and select
+the “Tables” tab. Click “Create” and then “New custom log (MMA-based).” MMA is a Microsoft
+service that monitors resources.
+<br />
+<br />
+<img src="https://i.imgur.com/I7zgB2H.png"/>
 
+Inside your virtual machine, search “Run” in the start menu and enter “C:\ProgramData\” as the
+destination. A File Explorer window will open and you should see a file named “failed_rdp.log.”
+Open it and copy the entire contents (Ctrl+A and Ctrl+C is the shortcut for this).
+<br />
+<br />
+Back on your actual computer, open Notepad and paste the contents inside. Click “File” then
+“Save as.” Name it “failed_rdp.log” and ensure that you save as “All files” type.
+<br />
+<br />
+The file you just created will be the sample log that Log Analytics is asking for.
+<br />
+<br />
+<img src="https://i.imgur.com/omRf36H.png"/>
+<br />
+<br />
+On the next page, verify that the data is properly formatted like in the picture below.
+<br />
+<br />
+<img src="https://i.imgur.com/nhenJ2D.png"/>
+<br />
+<br />
+On the next page, set “C:\ProgramData\failed_rdp.log” as the Path and “Windows” as the Type.
+Name and create the custom log – take note of the name for the next step. It will take a while for
+data to be synced between your virtual machine and your workspace. For me, it took at least 30
+to 40 minutes for logs to start appearing.
+To check if the data is done processing, you can open the “Logs” tab on your workspace and
+simply query with the name of your custom log (“FAILED_RDP_WITH_GEO_CL” in my case).
+Click “Run.” If the data is available, it will show up below.
+<br />
+<br />
+<img src="https://i.imgur.com/87xficz.png"/>
 
 <h3>12. Configure Azure Sentinel notebook</h3>
-
+We’re almost done! You can minimize the virtual machine for now. On your actual computer, go
+back to the Azure Sentinel dashboard.
+We’ll be creating a Sentinel workbook. A workbook enables us to process the data from our Log
+Analytics workspace and display it on the world map.
+Select your Log Analytics workspace and click the “Workbooks” tab. Create a workbook. There
+will be a couple of default widgets there – delete them and add a query.
+<br />
+<br />
+<img src="https://i.imgur.com/MKbSlVv.png"/>
+<img src="https://i.imgur.com/TKdk4Ay.png"/>
+A menu like the one in the picture above will appear. Set the time range to “Last 30 days,” the
+visualization to “Map,” and size to “Full.”
+<br />
+<br />
+We’ll finally be adding our query. This query further processes the data from our Log Analytics
+workspace for Sentinel to use. This query categorizes the data into groups such as timestamp,
+latitude, longitude, and country.
+<br />
+<br />
+Copy the following into the query box and ensure that you replace
+***CUSTOM_LOG_NAME_HERE*** with the name of the custom table you created in Log
+Analytics. Replace ***VM_PUBLIC_IP_HERE*** with the public IP address of your virtual
+machine. This is to exclude the test failed logins you may have done while checking if the
+PowerShell script works.
+<br />
+<br />
+***CUSTOM_LOG_NAME_HERE***
+|extend username = extract(@"username:([^,]+)", 1, RawData),
+ timestamp = extract(@"timestamp:([^,]+)", 1, RawData),
+ latitude = extract(@"latitude:([^,]+)", 1, RawData),
+ longitude = extract(@"longitude:([^,]+)", 1, RawData),
+ sourcehost = extract(@"sourcehost:([^,]+)", 1, RawData),
+ state = extract(@"state:([^,]+)", 1, RawData),
+ label = extract(@"label:([^,]+)", 1, RawData),
+ destination = extract(@"destinationhost:([^,]+)", 1, RawData),
+ country = extract(@"country:([^,]+)", 1, RawData)
+|where destination != "***USERNAME_YOU_TESTED_WITH_HERE"
+|where sourcehost != "***VM_PUBLIC_IP_HERE***"
+|summarize event_count=count() by timestamp, label, country, state, sourcehost, username,
+destination, longitude, latitude
+<br />
+<br />
+Run the query, and the map should appear. In the map settings, configure them as follows to
+correctly display your data.
+<br />
+<br />
+<img src="https://i.imgur.com/56tLR2C.png"/>
 
 <h3>13. Wait for people to discover your honeypot and attempt to RDP into it</h3>
-
+The setup is complete! You may safely close the Remote Desktop connection – the virtual
+machine and the script inside will keep running. It may take a few hours for attackers to start
+attempting to connect into the virtual machine. If you log back on and find that the script stopped
+running, you can simply start it up again to continue gathering data.
+<br />
+<br />
+Once failed connections start to come in, they will be shown on the map. You may have to
+refresh the map for it to update. On your virtual machine, the PowerShell ISE will also output
+logs to the console.
 
 <h3>14. Delete all resources when finished</h3>
+When you’re finished experimenting with the lab, I recommend deleting all the resources. I’ve
+had this honeypot up for two days at the time of writing this, and it’s only used up $3 of the $200
+free trial credit. Though it would take a while for you to burn through the $200 in the free trial, it
+would be unfortunate to forget about it and have an unwanted charge to your card later.
 
-
-
-<!--
-
+<h3>Final Words</h3>
+This wouldn’t be possible if not for Josh Madakor and his spectacular guide on YouTube. I
+learned a great deal from this project, most notably Microsoft Azure as a cloud service and how
+you can set up an entire process for data to be collected, processed, then sent to a SIEM for
+further analysis.
 <br />
 <br />
-<img src=""/>
-
-</p>
---!>
+This was a lot of fun to work on and motivated me to work on further projects. I’m also
+interested in expanding upon this one, possibly to include logs from other protocols such as SSH
+or Telnet.
+<br />
+<br />
+If you’ve made it to the end, thank you again for taking a look at my write-up on this project! I
+hope it provides detailed insight on how I was able to apply a lot of my personal studies into a
+real-world scenario. Most importantly, I hope you found it interesting!
