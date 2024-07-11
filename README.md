@@ -26,21 +26,21 @@ This document details my process of setting everything up. All credit goes to Jo
 
 <h2>Walkthrough</h2>
 
-<b>Steps</b>
-1. Create a new Microsoft Azure account and start the free pay-as-you-go trial <br />
-2. Create a virtual machine <br />
-3. Create a Log Analytics workspace <br />
-4. Configure Microsoft Defender for the Cloud settings <br />
-5. Connect Log Analytics workspace to your virtual machine <br />
-6. Configure Azure Sentinel (SIEM) <br />
-7. Log into your virtual machine <br />
-8. Turn off the virtual machine’s firewall <br />
-9. Set up the PowerShell script to collect log information <br />
-10. Get geolocation.io API key <br />
-11. Create a custom log in Log Analytics workspace <br />
-12. Configure Azure Sentinel notebook <br />
-13. Wait for people to discover your honeypot and attempt to RDP into it <br />
-14. Delete all resources when finished <br />
+<b>Steps</b> <br />
+[1. Create a new Microsoft Azure account and start the free pay-as-you-go trial](#1-create-a-new-microsoft-azure-account-and-start-the-free-pay-as-you-go-trial)<br />
+[2. Create a virtual machine](#2-create-a-virtual-machine)<br />
+[3. Create a Log Analytics workspace](#3-create-a-log-analytics-workspace)<br />
+[4. Configure Microsoft Defender for the Cloud settings](#4-configure-microsoft-defender-for-the-cloud-settings)<br />
+[5. Connect Log Analytics workspace to your virtual machine](#5-connect-log-analytics-workspace-to-your-virtual-machine)<br />
+[6. Configure Azure Sentinel (SIEM)](#6-configure-azure-sentinel-siem)<br />
+[7. Log into your virtual machine](#7-log-into-your-virtual-machine)<br />
+[8. Turn off the virtual machine’s firewall](#8-turn-off-the-virtual-machines-firewall)<br />
+[9. Set up the PowerShell script to collect log information](#9-set-up-the-powershell-script-to-collect-log-information)<br />
+[10. Get geolocation.io API key](#10-get-geolocationio-api-key)<br />
+[11. Create a custom log in Log Analytics workspace](#11-create-a-custom-log-in-log-analytics-workspace)<br />
+[12. Configure Azure Sentinel notebook](#12-configure-azure-sentinel-notebook)<br />
+[13. Wait for people to discover your honeypot and attempt to RDP into it](#13-wait-for-people-to-discover-your-honeypot-and-attempt-to-rdp-into-it)<br />
+[14. Delete all resources when finished](#14-delete-all-resources-when-finished)<br />
 
 <h3>1. Create a new Microsoft Azure account and start the free pay-as-you-go trial</h3>
 <img src="https://i.imgur.com/u3AlzvB.png"/>
