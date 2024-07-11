@@ -24,9 +24,8 @@ This document details my process of setting everything up. All credit goes to Jo
 - Microsoft Azure
 - Windows 10 Pro
 
-<h2>Walkthrough</h2>
+<h2>Contents</h2>
 
-<b>Steps</b> <br />
 [1. Create a new Microsoft Azure account and start the free pay-as-you-go trial](#1-create-a-new-microsoft-azure-account-and-start-the-free-pay-as-you-go-trial)<br />
 [2. Create a virtual machine](#2-create-a-virtual-machine)<br />
 [3. Create a Log Analytics workspace](#3-create-a-log-analytics-workspace)<br />
@@ -41,6 +40,9 @@ This document details my process of setting everything up. All credit goes to Jo
 [12. Configure Azure Sentinel notebook](#12-configure-azure-sentinel-notebook)<br />
 [13. Wait for people to discover your honeypot and attempt to RDP into it](#13-wait-for-people-to-discover-your-honeypot-and-attempt-to-rdp-into-it)<br />
 [14. Delete all resources when finished](#14-delete-all-resources-when-finished)<br />
+[Final Words](#final-words)
+
+<h2>Walkthrough</h2>
 
 <h3>1. Create a new Microsoft Azure account and start the free pay-as-you-go trial</h3>
 <img src="https://i.imgur.com/u3AlzvB.png"/>
