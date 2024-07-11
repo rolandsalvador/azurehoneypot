@@ -1,5 +1,5 @@
 <h1>Microsoft Azure Honeypot</h1>
-<a href="https://drive.google.com/file/d/1HmgOkRuU45BdccCwlngrir2C7a-qNstd/view?usp=sharing">.pdf version</a>
+<a href="https://drive.google.com/file/d/1HmgOkRuU45BdccCwlngrir2C7a-qNstd/view?usp=sharing">pdf version</a>
 
 <h2>Description</h2>
 In this project, I created a virtual machine hosted on Microsoft Azure to act as a honeypot for attackers attempting to use the Remote Desktop Protocol (RDP) to log in. All firewalls on the virtual machine were disabled, and the Azure security group associated with it allowed any traffic to pass through. As a result, people from all over the world attempted thousands of RDP connections to the VM. Using a PowerShell script, log data from Windows Event Viewer was extracted and sent to Azure Log Analytics for processing. A query was used to filter all data that Azure Sentinel, the SIEM, could use to display each event on a world map.
@@ -45,6 +45,8 @@ This document details my process of setting everything up. All credit goes to Jo
 <h3>1. Create a new Microsoft Azure account and start the free pay-as-you-go trial</h3>
 <img src="https://i.imgur.com/u3AlzvB.png"/>
 This was all possible due to the power of cloud computing, and for this lab we are using Microsoft Azure. Through Azure, we can create a machine (computer) separate from the one we use at home. Since this lab will be done on that separate machine, our own computer will be safe from attackers. Azure offers a free trial up to $200, which is more than enough for this lab. After creating an account and providing your information, you will have access to the Azure homepage. The search bar at the top will be helpful for finding all the different services that will be used in this lab.
+
+[Back to top](#microsoft-azure-honeypot)
   
 <h3>2. Create a virtual machine</h3>
 Now, let’s set up our virtual machine, or honeypot (a virtual trap to lure attackers in).
