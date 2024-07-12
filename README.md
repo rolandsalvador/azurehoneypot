@@ -40,7 +40,7 @@ This document details my process of setting everything up. All credit goes to Jo
 [12. Configure Azure Sentinel notebook](#12-configure-azure-sentinel-notebook)<br />
 [13. Wait for people to discover your honeypot and attempt to RDP into it](#13-wait-for-people-to-discover-your-honeypot-and-attempt-to-rdp-into-it)<br />
 [14. Delete all resources when finished](#14-delete-all-resources-when-finished)<br />
-[Final Words](#final-words)
+[Conclusion](#conclusion)
 
 <h2>Walkthrough</h2>
 
@@ -285,7 +285,7 @@ When you’re finished experimenting with the lab, I recommend deleting all the 
 
 [Back to top](#microsoft-azure-hacker-honeypot)
 
-<h3>Final Words</h3>
+<h3>Conclusion</h3>
 This wouldn’t be possible if not for Josh Madakor and his spectacular guide on YouTube. I learned a great deal from this project, most notably Microsoft Azure as a cloud service and how you can set up an entire process for data to be collected, processed, then sent to a SIEM for further analysis.
 <br />
 <br />
