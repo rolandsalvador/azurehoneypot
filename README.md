@@ -50,7 +50,7 @@ This was all possible due to the power of cloud computing, and for this lab we a
 <br />
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
   
 <h3>2. Create a virtual machine</h3>
 Now, let’s set up our virtual machine, or honeypot (a virtual trap to lure attackers in).
@@ -79,7 +79,7 @@ Delete the default inbound rule and create a new inbound rule with the same sett
 At this point, you can create the virtual machine; the rest of the settings don’t pertain to the lab.
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>3. Create a Log Analytics workspace</h3>
 While the virtual machine is being created, we’re going to create a new Log Analytics workspace. A log is a record of an event, such as information about someone using the wrong password for an account. For a typical home computer, these are stored somewhere in the local storage. With Log Analytics, we can retrieve the logs from our virtual machine and store them in the Azure cloud without having to go inside the computer manually.
@@ -88,7 +88,7 @@ While the virtual machine is being created, we’re going to create a new Log An
 <br />
 <img src="https://i.imgur.com/OPnYU0F.png"/>
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>4. Configure Microsoft Defender for the Cloud settings</h3>
 To ensure that Log Analytics gathers all the required logs, we must configure some settings in the Microsoft Defender for the Cloud service.
@@ -108,7 +108,7 @@ In the first menu that appears, “Defender plans,” uncheck “SQL servers on 
 In this menu, we want to configure “All Events.” This ensures that Log Analytics will collect all the data we require for the lab.
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>5. Connect Log Analytics workspace to your virtual machine</h3>
 For Log Analytics workspace to start collecting logs from our virtual machine, we must connect the two together. Open the Log Analytics dashboard again and open your workspace. There will be a tab labelled “Virtual Machines (deprecated)” that you will click on. 
@@ -124,7 +124,7 @@ Select your virtual machine and click “Connect.”
 This may take some time, so feel free to move onto the next step.
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>6. Configure Azure Sentinel (SIEM)</h3>
 Sentinel is where we will be querying the data we get from our Log Analytics workspace and display it on the world map. A query is a way to retrieve specific information from a set of data, like our logs. For example, we will later use a query that retrieves the country of the attackers. Activating Sentinel is quick and painless – simply navigate to the Sentinel dashboard and click “Create Azure Sentinel.” After, click your Log Analytics workspace and add it to your Sentinel.
@@ -132,7 +132,7 @@ Sentinel is where we will be querying the data we get from our Log Analytics wor
 <br />
 <img src="https://i.imgur.com/KsFQWnV.png"/>
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>7. Log into your virtual machine</h3>
 To log into your virtual machine, use a program called “Remote Desktop Connection” on your computer; it’s installed on there by default.
@@ -148,7 +148,7 @@ Once you open the program, enter the public IP address of your virtual machine. 
 Ensure that the machine status is “Running.” It may take a few minutes for you to be able to log in and start using the machine.
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>8. Turn off the virtual machine’s firewall</h3>
 We must turn off the firewall on the virtual machine. This will enable attackers from all over the world to try and access it. Search up “wf.msc” in the Start Menu and click on “Windows Firewall
@@ -160,7 +160,7 @@ Properties.”
 Ensure that you disable the domain, private, and public firewalls. Click “Apply” and then “OK.”
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>9. Set up the PowerShell script to collect log information</h3>
 PowerShell is the Windows version of a shell. A shell is essentially a window where you can input commands to tell the computer to do something. A script is a set of instructions that the shell will follow automatically.
@@ -174,7 +174,7 @@ The easiest way to get this script is to copy the whole script in the GitHub lin
 <br />
 <img src="https://i.imgur.com/TGivCkM.png"/>
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>10. Get geolocation.io API key</h3>
 geolocation.io is a free online tool that enables us to input an IP address and look up the country, state, latitude, and longitude associated with it. To get it to work with our script, you must sign up and get your API key. This key allows you to make use of the location tool in the script. On the first and second line of the PowerShell script, it mentions:
@@ -193,7 +193,7 @@ Once you create an account on the geolocation.io website, you will be presented 
 On the top of the PowerShell ISE window, there will be a green button to start the script. Press the button so we can start collecting data. If you want to test if it works, you can open another Remote Desktop window on your actual computer. However, this time you must intentionally put in a wrong username and/or password so that it shows up on your virtual machine’s log. If configured correctly, there will be a log entry in the console of the PowerShell ISE.
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>11. Create a custom log in Log Analytics workspace</h3>
 We’ll be creating a custom log in our Log Analytics workspace so that the formatting will be consistent with the logs in our virtual machine. Open your workspace in Log Analytics and select the “Tables” tab. Click “Create” and then “New custom log (MMA-based).” MMA is a Microsoft service that monitors resources.
@@ -225,7 +225,7 @@ To check if the data is done processing, you can open the “Logs” tab on your
 <br />
 <img src="https://i.imgur.com/87xficz.png"/>
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>12. Configure Azure Sentinel notebook</h3>
 We’re almost done! You can minimize the virtual machine for now. On your actual computer, go back to the Azure Sentinel dashboard. We’ll be creating a Sentinel workbook. A workbook enables us to process the data from our Log Analytics workspace and display it on the world map.
@@ -266,7 +266,7 @@ Run the query, and the map should appear. In the map settings, configure them as
 <br />
 <img src="https://i.imgur.com/56tLR2C.png"/>
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>13. Wait for people to discover your honeypot and attempt to RDP into it</h3>
 The setup is complete! You may safely close the Remote Desktop connection – the virtual machine and the script inside will keep running. It may take a few hours for attackers to start attempting to connect into the virtual machine. If you log back on and find that the script stopped running, you can simply start it up again to continue gathering data.
@@ -276,14 +276,14 @@ Once failed connections start to come in, they will be shown on the map. You may
 <br />
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>14. Delete all resources when finished</h3>
 When you’re finished experimenting with the lab, I recommend deleting all the resources. I’ve had this honeypot up for two days at the time of writing this, and it’s only used up $3 of the $200 free trial credit. Though it would take a while for you to burn through the $200 in the free trial, it would be unfortunate to forget about it and have an unwanted charge to your card later.
 <br />
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
 
 <h3>Final Words</h3>
 This wouldn’t be possible if not for Josh Madakor and his spectacular guide on YouTube. I learned a great deal from this project, most notably Microsoft Azure as a cloud service and how you can set up an entire process for data to be collected, processed, then sent to a SIEM for further analysis.
@@ -297,4 +297,4 @@ If you’ve made it to the end, thank you again for taking a look at my write-up
 <br />
 <br />
 
-[Back to top](#microsoft-azure-honeypot)
+[Back to top](#microsoft-azure-hacker-honeypot)
